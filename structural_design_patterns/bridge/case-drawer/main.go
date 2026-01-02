@@ -28,7 +28,12 @@ func (c *Circle) Draw() {
 	c.drawApi.DrawCircle(c.radius, c.x, c.y)
 }
 
+// Client
+func draw(d Shape) {
+	d.Draw()
+}
+
 func main() {
 	redCircle := &Circle{100, 100, 10, &RedCircle{}}
-	redCircle.Draw()
+	draw(redCircle)
 }
