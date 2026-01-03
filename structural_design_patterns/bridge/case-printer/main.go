@@ -2,56 +2,10 @@ package main
 
 import "fmt"
 
-type Computer interface {
-	Print()
-	SetPrinter(Printer)
-}
-
-type Mac struct {
-	printer Printer
-}
-
-func (m *Mac) Print() {
-	fmt.Println("Print request for mac")
-	m.printer.PrintFile()
-}
-
-func (m *Mac) SetPrinter(p Printer) {
-	m.printer = p
-}
-
-type Windows struct {
-	printer Printer
-}
-
-func (w *Windows) Print() {
-	fmt.Println("Print request for windows")
-	w.printer.PrintFile()
-}
-
-func (w *Windows) SetPrinter(p Printer) {
-	w.printer = p
-}
-
-type Printer interface {
-	PrintFile()
-}
-
-type Epson struct{}
-
-func (e *Epson) PrintFile() {
-	fmt.Println("Printing by a EPSON Printer")
-}
-
-type Hp struct{}
-
-func (h *Hp) PrintFile() {
-	fmt.Println("Printing by a HP Printer")
-}
-
 func main() {
 	hpPrinter := &Hp{}
 	epsonPrinter := &Epson{}
+	canonPrinter := &Canon{}
 
 	macComputer := &Mac{}
 	macComputer.SetPrinter((hpPrinter))
@@ -71,4 +25,12 @@ func main() {
 	windowsComputer.Print()
 	fmt.Println()
 
+	linuxPC := Linux{}
+	linuxPC.SetPrinter(hpPrinter)
+
+	linuxPC.Print()
+	fmt.Println()
+
+	linuxPC.SetPrinter(canonPrinter)
+	linuxPC.Print()
 }
