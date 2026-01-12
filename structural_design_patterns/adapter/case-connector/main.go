@@ -2,40 +2,37 @@ package main
 
 import "fmt"
 
-type Computer interface {
-	InsertIntoUSBPort()
+// misalnya user punya hp Iphone 17 pro max, yang kabel chargerya USB C to USB C
+// karena ga ada colokan listrik dengan port USB C maka perlu adapter
+// adapter ini memiliki soket USB C dan colokan standar yg kompatibel dengan stopkontak pada umumnya
+// jadi spesifikasi adapter adalah, menerima USB C plug dan colokan standar
+// mari kita bikin
+
+type Iphone struct{}
+
+type USBCtoElectricalPlugAdapter struct {
+	phone *Iphone
 }
 
-// Adaptee
-type LightnightConnector struct{}
-
-func (l *LightnightConnector) InsertIntoLightningPort() {
-	fmt.Println("Lightning connector is plugged into the Lightning port.")
+func (u *USBCtoElectricalPlugAdapter) plug() {
+	fmt.Println("Plugging USB C to Power Outlet..")
 }
 
-// Adapter
-type LightningAdapter struct {
-	lightningDevice *LightnightConnector
+type Pluggable interface {
+	plug()
 }
 
-func (l *LightningAdapter) InsertIntoUSBPort() {
-	fmt.Println("Adapter converts USB-C signal to Lightning...")
-	l.lightningDevice.InsertIntoLightningPort()
-}
-
-// Client
-type Client struct{}
-
-func (c *Client) ChargeComputer(com Computer) {
-	com.InsertIntoUSBPort()
+func charge(c Pluggable) {
+	c.plug()
+	fmt.Println("Charging... 🚀")
 }
 
 func main() {
-	client := &Client{}
 
-	lightning := &LightnightConnector{}
+	iphone17promax := &Iphone{}
 
-	adapter := &LightningAdapter{lightningDevice: lightning}
+	adapter := &USBCtoElectricalPlugAdapter{phone: iphone17promax}
 
-	client.ChargeComputer(adapter)
+	charge(adapter)
+
 }
