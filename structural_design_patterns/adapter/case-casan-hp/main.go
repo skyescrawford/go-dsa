@@ -2,46 +2,36 @@ package main
 
 import "fmt"
 
-// HP usb type C -> casan HP (usb type A) -> (usb port type A) Adapter (steker)  -> stop kontak (steker port)
-
-type IUSBA interface {
-	useIUSBA()
+type Android struct {
+	cableData string
 }
 
-type ISteker interface {
-	useSteker()
+func (a *Android) plugToUSBPort() {
+	fmt.Println("plugging cable data into USB port")
 }
 
-type CasanHP struct {
-	name string
+type Pluggable interface {
+	plugToACSocket()
 }
 
-func (c CasanHP) useIUSBA() {
-	fmt.Println(c.name, "kepala USB tipe A")
+func Charge(p Pluggable) {
+	p.plugToACSocket()
 }
 
-type Steker struct{}
-
-func (s Steker) useSteker() {
-	fmt.Println("Kepala Steker")
+type PowerAdapter struct {
+	phone *Android
 }
 
-type usbaToStekerAdapter struct {
-	device IUSBA
-}
-
-func newAdapter(d IUSBA) usbaToStekerAdapter {
-	return usbaToStekerAdapter{device: d}
-}
-
-func (a usbaToStekerAdapter) useSteker() {
-	fmt.Println("[Adapter] menghubungkan USB tipe A ke Steker")
-	a.device.useIUSBA()
-	fmt.Println("[Adapter] tersambung ke steker 🚀🚀🚀")
+func (p *PowerAdapter) plugToACSocket() {
+	p.phone.plugToUSBPort()
+	fmt.Println("plugging power adapter into AC socket")
+	fmt.Println("charging...")
 }
 
 func main() {
-	casan := CasanHP{name: "casan HP Realll"}
-	adapter := newAdapter(casan)
-	adapter.useSteker()
+	phone := &Android{}
+
+	adapter := &PowerAdapter{phone}
+
+	Charge(adapter)
 }

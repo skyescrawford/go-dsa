@@ -1,21 +1,25 @@
 # Learn data structures in golang 🚀🚀🚀
 
+## References
+
+![book](./assets/book.jpg)
+
 ![cover](./assets/cover.png)
 
 ## Learning path:
 
-- [ ] Array
+- [x] Array
 
-- [ ] Hash Map
+- [x] Hash Map
 
-- [ ] Stack
+- [x] Stack
 
-- [ ] Queue
+- [x] Queue
 
-- [ ] Linked List
+- [x] Linked List
 
-- [ ] Tree
+- [ ] Tree (on progess)
 
-- [ ] Heap
+- [ ] Heap (on progess)
 
-- [ ] Graph
+- [ ] Graph (on progress)
